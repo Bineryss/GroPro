@@ -39,4 +39,15 @@ public class Puzzle {
     public boolean isIstLoesbar() {
         return istLoesbar;
     }
+
+    public String toString() {
+        String out = "";
+        if (istLoesbar) {
+            //TODO: Ausgabe hinzufügen
+            out = "String Magie";
+        } else {
+            out = "Es gibt kein Ergebniss";
+        }
+        return out;
+    }
 }

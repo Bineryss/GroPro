@@ -1,19 +1,24 @@
 package ihk;
 
+import ihk.io.Dateiausgabe;
 import ihk.io.Dateieingabe;
 import ihk.io.IOWrapper;
 import ihk.logik.Puzzle;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Main {
 
     public static void main(String[] args) {
-        IOWrapper wrapper = null;
+        IOWrapper wrapper;
+        String path = "C:\\Users\\sebas\\Documents\\GroPro-Otto\\Code\\resources\\Beispiel 1.txt";
         try {
-            wrapper = new Dateieingabe("C:\\Users\\sebas\\Documents\\GroPro-Otto\\Code\\resources\\Beispiel 1.txt").read();
+            wrapper = new Dateieingabe(path).read();
             Puzzle p = wrapper.getPuzzle();
-        } catch (FileNotFoundException e) {
+
+            new Dateiausgabe(path).write(p, wrapper.getComment());
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
