@@ -1,6 +1,6 @@
 package ihk.logik;
 
-public enum Axen {
+public enum Axis {
     X,
     Y,
     Z

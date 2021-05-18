@@ -23,7 +23,7 @@ public class Dateiausgabe implements IAusgabe {
         File file = new File(path + "-Ergebnis.txt");
         try (BufferedWriter writer = new BufferedWriter(new java.io.FileWriter(file))) {
 
-            String out = String.format("%s \n %s", comment, input.toString());
+            String out = String.format("%s%s", comment, input.toString());
 
             writer.write(out);
         }
