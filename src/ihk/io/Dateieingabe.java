@@ -24,6 +24,9 @@ public class Dateieingabe implements IEingabe {
             int[] dimension = new int[3];
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
+                if (line.isEmpty()) {
+                    line = scanner.nextLine();
+                }
                 if (line.startsWith("//")) {
                     comment += line.substring(2) + "\n";
                 } else if (line.startsWith("Dimension")) {
