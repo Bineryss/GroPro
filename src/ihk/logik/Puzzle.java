@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
+/**
+ * Representiert das Puzzel, mit der Angegbenen Ergebnissform und allen UWerfel, die zu dem Puzzel gehoeren.
+ */
 public class Puzzle {
     private final List<Cube> cube;
     private Cube[][][] dimension;
@@ -19,6 +21,13 @@ public class Puzzle {
 
     }
 
+    /**
+     * Die Berechnung ob eine Wuerfelkombination ein Ergebniss in der gewuenschten Form liefern.
+     * Dazu wird zuerst getestet, ob die Angebebene Wuerfelanzahl ausreicht fuer die angegebene Loesungsform.
+     * Dann werden die Wuerfel anahnd ihrer Dreieckanzahl sortiert.
+     * Es wird getestet, ob die Form der Wuerfel ebenfalls fuer die angegebene Form passt.
+     * Anschliessend wird rekursiev mit Backtracking der Algorithmus ausgefuehrt.
+     */
     public void calc() {
         if (!hasEnoughCubes()) {
             hasResult = false;
@@ -41,6 +50,17 @@ public class Puzzle {
 
     }
 
+    /**
+     * Berechnet die Loesung mit Backtracking rekursiev
+     *
+     * @param lastField das Ergebnisfeld aus dem letzten aufruf
+     * @param xPos die aktuelle Position auf der X - Achse
+     * @param yPos die aktuelle Position auf der Y - Achse
+     * @param zPos die aktuelle Position auf der Z - Achse
+     * @param unusedCubes alle noch nicht benutze Wuerfel
+     * @return hat der Algorithmus ein Ergbenis gefunden, dann wird das zurueckgegbene,
+     * wurde kein Ergebniss gefunden, wird das Feld, aus dem letzten aufruf zurückgegebene.
+     */
     private Cube[][][] calculatePossibleResult(Cube[][][] lastField, int xPos, int yPos, int zPos, List<Cube>[] unusedCubes) {
         //Holt sich alle Wuerfel, die auf die aktuelle Position passen.
         List<Cube> currentW = unusedCubes[form[xPos][yPos][zPos]];
@@ -112,6 +132,11 @@ public class Puzzle {
         return nWuerfel;
     }
 
+    /**
+     * Es wird fuer jede Position in der Ergebnissform berechnet,
+     * welcher Wuerfel mit welcher Dreieckanzahl an diese Position passt.
+     *
+     */
     private void calcForm() {
         for (int i = 0; i < dimension.length; i++) {
             for (int j = 0; j < dimension[i].length; j++) {
@@ -144,16 +169,16 @@ public class Puzzle {
     }
 
     private List<Cube>[] sortCubes() {
-        ArrayList<Cube>[] wuerfelSortiert = new ArrayList[6];
-        for (int i = 0; i < wuerfelSortiert.length; i++) {
-            wuerfelSortiert[i] = new ArrayList<>();
+        ArrayList<Cube>[] sortedCubes = new ArrayList[7];
+        for (int i = 0; i < sortedCubes.length; i++) {
+            sortedCubes[i] = new ArrayList<>();
         }
 
         for (var el : cube) {
-            wuerfelSortiert[el.countNonFlatFaces()].add(el);
+            sortedCubes[el.countNonFlatFaces()].add(el);
         }
 
-        return wuerfelSortiert;
+        return sortedCubes;
     }
 
     //Prueft ob passt, wenn ja fuegt wuerfel ein
@@ -161,10 +186,11 @@ public class Puzzle {
     /**
      * Prueft ob der übergebene Wuerfel an der aktuellen Stelle passt.
      * D.h. es stehen keine Dreieck nach außen und alle anliegenden Wuerfel haben passende Dreiecke.
-     * @param x Position an X - Achse
-     * @param y Position an Y - Achse
-     * @param z Position an Y - Achse
-     * @param w Der Wuerfel, der eingefuegt werden soll
+     *
+     * @param x    Position an X - Achse
+     * @param y    Position an Y - Achse
+     * @param z    Position an Y - Achse
+     * @param w    Der Wuerfel, der eingefuegt werden soll
      * @param form Der Zustand des akuellen Loesungsverchus
      * @return Gibt an, ob der Wuerfel an der Angegebenen Stelle stehen kann
      */
@@ -215,8 +241,8 @@ public class Puzzle {
      * Auf der X und Y - Achse, passen die Seiten 1-2 und 3-4 aufeinander.
      * Fuer die Z - Achse passen die Seiten 1-4 und 2-3 aufeinander.
      *
-     * @param a Seite des ersten Wuerfels
-     * @param b Seite des zweiten Wuerfels
+     * @param a   Seite des ersten Wuerfels
+     * @param b   Seite des zweiten Wuerfels
      * @param axe Achse, auf der Verglichen wird
      * @return Gibt an ob die zwei angebenen Seiten aufeinander passen
      */
@@ -247,7 +273,6 @@ public class Puzzle {
     }
 
     /**
-     *
      * @return Gibt als String das Puzzel in Ausgabeformat an
      */
     public String toString() {

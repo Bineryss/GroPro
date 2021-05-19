@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Konkrete implemetierung des Eingabe Interfaces, fuer Dateieingaben
+ */
 public class Dateieingabe implements IEingabe {
     private final String path;
 
@@ -34,7 +37,7 @@ public class Dateieingabe implements IEingabe {
                     String[] dimNumber = dimString[1].split(",");
                     dimension = convertStringToInt(dimNumber);
                 } else {
-                    cube.add(convertStringToWuerfel(line));
+                    cube.add(convertStringToCubes(line));
                 }
             }
             Puzzle puzzle = new Puzzle(cube, dimension[0], dimension[1], dimension[2]);
@@ -42,7 +45,7 @@ public class Dateieingabe implements IEingabe {
         }
     }
 
-    private Cube convertStringToWuerfel(String line) {
+    private Cube convertStringToCubes(String line) {
         String[] nameNumber = line.split(":");
         nameNumber[1] = nameNumber[1].trim();
         String[] numbers = nameNumber[1].split(" ");

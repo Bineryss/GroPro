@@ -6,6 +6,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Konkrete implemetierung des Ausgabe Interfaces, fuer Dateiausgaben
+ */
 public class Dateiausgabe implements IAusgabe {
     private String path;
 
